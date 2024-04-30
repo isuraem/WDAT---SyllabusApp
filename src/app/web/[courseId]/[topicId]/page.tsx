@@ -11,7 +11,7 @@ export default function TopicPage({
 }: {
     params: { courseId: string, topicId: string };
 }) {
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const [topicData, setTopicData] = useState<any>(null);
     const [copied, setCopied] = useState(false);
@@ -59,17 +59,19 @@ export default function TopicPage({
         const nonDigitsBefore = (cardNumber.slice(0, selectionStart).match(/\D/g) || []).length;
         const formattedValue = formatCardNumber(value);
         const nonDigitsAfter = (formattedValue.slice(0, selectionStart).match(/\D/g) || []).length;
-
+    
         setCardNumber(formattedValue);
-
+    
         // Adjust the cursor position
         const newCaretPosition = selectionStart + (nonDigitsAfter - nonDigitsBefore);
-        if (inputRef.current && selectionStart !== null) {
+        // Ensure inputRef.current is not null before using it
+        if (inputRef.current !== null && selectionStart !== null) {
             requestAnimationFrame(() => {
-                inputRef.current.setSelectionRange(newCaretPosition, newCaretPosition);
+                inputRef.current?.setSelectionRange(newCaretPosition, newCaretPosition);
             });
         }
     };
+    
 
     const CheckoutModal = () => (
         <div className={`fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ${!isCheckoutModalOpen && "hidden"}`}>
