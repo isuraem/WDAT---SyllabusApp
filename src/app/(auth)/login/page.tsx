@@ -42,7 +42,8 @@ import { useState } from 'react';
 import './styles.css';
 import TextInput from '@/components/textInput';
 import { DummyUsers } from "../../constants/dummyUsers";
-import { useRouter  } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -89,6 +90,11 @@ export default function LoginPage() {
           />
         </div>
         <button type="submit">Login</button>
+        <div className="flex justify-center mt-2">
+          <Link href="/register" className="text-blue-500 hover:text-blue-700 underline">
+            Register here
+          </Link>
+        </div>
       </form>
     </div>
   );
