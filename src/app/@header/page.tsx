@@ -20,7 +20,7 @@ export default function Header() {
                 </div>
             </div>
             <div className='flex grow items-center justify-end sm:hidden'>
-                <Popover.Button className="inline-flex items-center justify-center rounded-d bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <Popover.Button className="inline-flex items-center justify-center rounded-d bg-white p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Open menu</span>
                     <AiOutlineBars className='w-[25px] h-[25px]' />
 
