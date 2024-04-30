@@ -39,10 +39,11 @@ export default function CoursePage({
                     <p className='text-black text-l font-bold mt-2'>{course.title}</p>
                     <p className='text-black text-l font mt-2'>{course.description}</p>
                 </div>
-                <div className='mt-5 flex justify-center'>
+                <div className='mt-5 flex flex-col sm:flex-row justify-center items-center text-center sm:text-left'>
                     <p className='text-black text-2xl font-bold'>What will I learn?</p>
-                    <p className='mt-1 ms-2'> Here’s everything that’s covered in the course.</p>
+                    <p className='mt-1 sm:mt-0 sm:ml-2'>Here’s everything that’s covered in the course.</p>
                 </div>
+
                 <div className='mt-5 flex flex-col items-center'>
                     {course.topics && course.topics.map((topic, index) => (
                         <div key={topic.id} className='flex flex-row items-center bg-white p-4 my-2 shadow-lg rounded-lg w-full md:w-1/2 lg:w-1/3 cursor-pointer hover:bg-gray-200'
