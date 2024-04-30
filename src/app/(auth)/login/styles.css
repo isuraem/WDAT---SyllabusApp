@@ -1,0 +1,55 @@
+.container1 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  .form {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  }
+  
+  .inputGroup {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0070f3;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0053a1;
+  }
+.LoginText{
+    font-size: 20px;
+}
+.loginTextDiv{
+  display: flex;
+  justify-content: center;
+}
