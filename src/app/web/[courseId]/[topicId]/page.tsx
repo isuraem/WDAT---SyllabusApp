@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { AiFillCopy } from "react-icons/ai";
 import TextInput from '@/components/textInput';
 import { AiFillCaretRight } from "react-icons/ai";
+import { BsBrightnessLow } from "react-icons/bs";
 
 export default function TopicPage({
     params: { courseId, topicId },
@@ -18,6 +19,7 @@ export default function TopicPage({
     const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isLastTopic, setIsLastTopic] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -30,6 +32,8 @@ export default function TopicPage({
 
                 if (topic) {
                     setTopicData(topic);
+                    const lastIndex = topicArray.length - 1;
+                    setIsLastTopic(topic.id === topicArray[lastIndex].id);
                 }
             }
         };
@@ -59,9 +63,9 @@ export default function TopicPage({
         const nonDigitsBefore = (cardNumber.slice(0, selectionStart).match(/\D/g) || []).length;
         const formattedValue = formatCardNumber(value);
         const nonDigitsAfter = (formattedValue.slice(0, selectionStart).match(/\D/g) || []).length;
-    
+
         setCardNumber(formattedValue);
-    
+
         // Adjust the cursor position
         const newCaretPosition = selectionStart + (nonDigitsAfter - nonDigitsBefore);
         // Ensure inputRef.current is not null before using it
@@ -71,7 +75,7 @@ export default function TopicPage({
             });
         }
     };
-    
+
 
     const CheckoutModal = () => (
         <div className={`fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ${!isCheckoutModalOpen && "hidden"}`}>
@@ -178,23 +182,41 @@ export default function TopicPage({
                             </div>
                         </div>
                     </div>
+                    {!isLastTopic ?
+                        (
+                            <>
+                                <div className='mt-8'>
+                                    <div className='flex justify-center items-center'>
+                                        <button
+                                            className="mt-2 bg-black text-white rounded-xl focus:outline-none p-3 hover:bg-gray-900 flex flex-row pl-4"
+                                            // onClick={handleCopy}
+                                            onClick={moveToNextTut}
+                                        >
+                                            move to next
+                                            <AiFillCaretRight className='w-4 h-4 mt-1 m-2' />
+                                        </button>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <div className='mt-8'>
+                                <div className='flex justify-center items-center'>
+                                    <button
+                                        className="mt-2 bg-green-800 text-white rounded-xl focus:outline-none p-3 hover:bg-gray-900 flex flex-row pl-4"
+                                    >
+                                        Completed
+                                        <BsBrightnessLow className='w-4 h-4 mt-1 m-2' />
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                    }
 
-                    <div className='mt-8'>
-                        <div className='flex justify-center items-center'>
-                            <button
-                                className="mt-2 bg-black text-white rounded-xl focus:outline-none p-3 hover:bg-gray-900 flex flex-row pl-4"
-                                // onClick={handleCopy}
-                                onClick={moveToNextTut}
-                            >
-                                move to next
-                                <AiFillCaretRight className='w-4 h-4 mt-1 m-2' />
-                            </button>
-                        </div>
-                    </div>
 
                 </div>
             }
             {isCheckoutModalOpen && <CheckoutModal />}
+
         </div>
     );
 }
