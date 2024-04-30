@@ -5,13 +5,13 @@ import TextInput from '@/components/textInput';
 import { DummyUsers } from "../../constants/dummyUsers";
 import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function RegisterPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const router = useRouter();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
 
         if (password !== newPassword) {
