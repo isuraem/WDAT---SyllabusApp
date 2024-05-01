@@ -11,16 +11,16 @@ export default function Header() {
     const [loginStatus, setLoginStatus] = useState(false);
 
     useEffect(() => {
-    
         const handleLocalStorageChange = (event: StorageEvent) => {
-            console.log("localStorage change event:", event); // Log the event object to check its properties
+            console.log("localStorage change event:", event); 
     
             if (event.key === 'userLoggedIn') {
-                const newValue = JSON.parse(event.newValue);
-                console.log("New value parsed:", newValue); 
-                setLoginStatus(newValue || false); // If newValue is falsy, set login status to false
+                const newValue = event.newValue ? JSON.parse(event.newValue) : null;
+                console.log("New value parsed:", newValue);
+                setLoginStatus(newValue || false); 
             }
         };
+    
         const userLoggedIn = localStorage.getItem('userLoggedIn');
         setLoginStatus(userLoggedIn ? JSON.parse(userLoggedIn) : false);
     
