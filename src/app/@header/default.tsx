@@ -11,26 +11,31 @@ export default function Header() {
     const [loginStatus, setLoginStatus] = useState(false);
 
     useEffect(() => {
-        console.log("Effect is being called"); 
-
-        const handleLocalStorageChange = (event: any) => {
-            console.log("localStorage change event:", event); 
+        const handleLocalStorageChange = (event: StorageEvent) => {
+            console.log("localStorage change event:", event);
 
             if (event.key === 'userLoggedIn') {
-               
-                const newValue = JSON.parse(event.newValue);
-                console.log("New value parsed:", newValue); 
-                
-                setLoginStatus(newValue);
+                const newValue = event.newValue ? JSON.parse(event.newValue) : null;
+                console.log("New value parsed:", newValue);
+                setLoginStatus(newValue || false);
             }
         };
 
-        window.addEventListener('storage', handleLocalStorageChange);
+        const userLoggedIn = localStorage.getItem('userLoggedIn');
+        setLoginStatus(userLoggedIn ? JSON.parse(userLoggedIn) : false);
 
+        // Add event listener for storage events
+        window.addEventListener('storage', handleLocalStorageChange);
         return () => {
             window.removeEventListener('storage', handleLocalStorageChange);
         };
-    }, []); 
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.setItem('userLoggedIn', JSON.stringify(false));
+        setLoginStatus(false);
+    };
+
     return (
         <Popover className='container mx-auto flex items-center border-b-2 px-4 py-2 h-24'>
             <h1 className='font-bold'>LearningWithMe</h1>
@@ -53,7 +58,7 @@ export default function Header() {
             <Popover.Panel
                 focus
                 className="absolute inset-x-0 top-0 origin-top-right transform  transition md:hidden z-10"
-                >
+            >
                 <div className='rounded-lg bg-white shadow-lg right-1 ring-black ring-opacity-5 divide-y-2 devide-gray50'>
                     <div className='px-5 pt-5 pb-6'>
                         <div className='flex items-center justify-between'>
