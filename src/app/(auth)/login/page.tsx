@@ -53,18 +53,17 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Check if username and password match any entry in DummyUsers
     const userExists = DummyUsers.some(user => user.name === username && user.password === password);
 
     if (userExists) {
-      console.log('Login Successful:', { username, password });
-      localStorage.setItem('userLoggedIn', 'true');  // Set login status in local storage
-      router.back();
+        console.log('Login Successful:', { username, password });
+        localStorage.setItem('userLoggedIn', 'true'); 
+        router.back();
     } else {
-      console.log('Login Failed: Invalid credentials');
-      localStorage.removeItem('userLoggedIn');  // Ensure userLoggedIn is cleared if login fails
+        console.log('Login Failed: Invalid credentials');
+        localStorage.setItem('userLoggedIn', 'false'); 
     }
-  };
+};
 
   return (
     <div className="container1">

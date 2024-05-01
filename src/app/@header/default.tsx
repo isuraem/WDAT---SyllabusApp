@@ -1,13 +1,36 @@
 "use client"
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Popover } from '@headlessui/react'
 import "./styles.css";
 import { AiOutlineBars } from "react-icons/ai";
 import { AiOutlineLine } from "react-icons/ai";
 export default function Header() {
-    let [navBar, setNavBar] = useState(false)
+    let [navBar, setNavBar] = useState(false);
+    const [loginStatus, setLoginStatus] = useState(false);
+
+    useEffect(() => {
+        console.log("Effect is being called"); 
+
+        const handleLocalStorageChange = (event: any) => {
+            console.log("localStorage change event:", event); 
+
+            if (event.key === 'userLoggedIn') {
+               
+                const newValue = JSON.parse(event.newValue);
+                console.log("New value parsed:", newValue); 
+                
+                setLoginStatus(newValue);
+            }
+        };
+
+        window.addEventListener('storage', handleLocalStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleLocalStorageChange);
+        };
+    }, []); 
     return (
         <Popover className='container mx-auto flex items-center border-b-2 px-4 py-2 h-24'>
             <h1 className='font-bold'>LearningWithMe</h1>
