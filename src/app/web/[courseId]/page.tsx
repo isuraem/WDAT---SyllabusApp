@@ -13,9 +13,9 @@ export default function CoursePage({
     const course = Courses.find((course) => course.id === Number(courseId));
 
     const handleTopicClick = async (topicId: any) => {
-        const isUserLoggedIn = localStorage.getItem('userLoggedIn'); // Check local storage for login status
-
-        if (!isUserLoggedIn) {
+        const isUserLoggedIn = localStorage.getItem('userLoggedIn');
+        console.log("data",isUserLoggedIn)
+        if (isUserLoggedIn === "false") {
             console.log("User is not logged in, redirecting to login page.");
             router.push('/login');
         } else {
