@@ -15,7 +15,7 @@ export default function CoursePage({
     const handleTopicClick = async (topicId: any) => {
         const isUserLoggedIn = localStorage.getItem('userLoggedIn');
         console.log("data",isUserLoggedIn)
-        if (isUserLoggedIn === "false") {
+        if (isUserLoggedIn === "false" || isUserLoggedIn === null) {
             console.log("User is not logged in, redirecting to login page.");
             router.push('/login');
         } else {
