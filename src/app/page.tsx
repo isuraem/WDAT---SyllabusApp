@@ -62,7 +62,7 @@ export default function Home() {
         </div>
 
       </div>
-      <div className='container mx-auto'>
+      <div className='container mx-auto mb-3'>
         <div className="flex items-center justify-center mt-10 text-2xl font-bold">New Courses</div>
         <div>
           <Swiper
@@ -91,10 +91,10 @@ export default function Home() {
           </Swiper>
         </div>
       </div>
-      <div className='container mx-auto'>
+      {/* <div className='container mx-auto'>
         <div className="flex items-center justify-center mt-10 text-2xl font-bold">Hosted By</div>
 
-      </div>
+      </div> */}
 
     </div>
   );

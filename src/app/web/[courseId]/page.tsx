@@ -2,24 +2,22 @@
 import React from 'react';
 import { Courses } from "../../constants/courseDetails";
 import { useRouter } from 'next/navigation';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function CoursePage({
     params: { courseId },
 }: {
     params: { courseId: string };
 }) {
+    const { user, error, isLoading } = useUser();
 
     const router = useRouter();
     const course = Courses.find((course) => course.id === Number(courseId));
 
     const handleTopicClick = async (topicId: any) => {
-        const isUserLoggedIn = localStorage.getItem('userLoggedIn');
-        console.log("data",isUserLoggedIn)
-        if (isUserLoggedIn === "false" || isUserLoggedIn === null) {
-            console.log("User is not logged in, redirecting to login page.");
-            router.push('/login');
+        if (!user) {
+            router.push('/api/auth/login');
         } else {
-            console.log("User is logged in, navigating to topic.");
             router.push(`/web/${courseId}/${topicId}`);
         }
     };
