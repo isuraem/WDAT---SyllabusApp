@@ -6,11 +6,16 @@ import { Popover } from '@headlessui/react'
 import "./styles.css";
 import { AiOutlineBars } from "react-icons/ai";
 import { AiOutlineLine } from "react-icons/ai";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function Header() {
     let [navBar, setNavBar] = useState(false)
     const [loginStatus, setLoginStatus] = useState(false);
+    const { user, error, isLoading } = useUser();
 
+    // if(user?.name){
+    //     setLoginStatus(true)
+    // }
     return (
         <Popover className='container mx-auto flex items-center border-b-2 px-4 py-2 h-24'>
             <h1 className='font-bold'>LearningWithMe</h1>
@@ -62,7 +67,8 @@ export default function Header() {
                                     href="/">Mobile</Link>
                             </nav>
                         </div>
-                        {!loginStatus &&
+                        {user?.name}
+                        {!user &&
                             <>
                                 <div className='mt-6 flex flex-col items-center gap-2'>
                                     <Link
@@ -80,19 +86,39 @@ export default function Header() {
                                 </div>
                             </>
                         }
+                         {user &&
+                            <>
+                                <div className='mt-6 flex flex-col items-center gap-2'>
+                                    <Link
+                                        href="/api/auth/login"
+                                        className='rounded-nd bg-gray-500 px-4 py-2 text-sm font-medium md:text-xl w-full focus: outline-none focus: ring-2 focus: ring-inset focus: ring-gray-500'
+                                    >
+                                       Logout
+                                    </Link>
+                                   
+                                </div>
+                            </>
+                        }
                     </div>
                 </div>
 
             </Popover.Panel>
 
             <div className='hidden sm:block'>
-                {!loginStatus &&
+                {user?.name}
+                {!user &&
                     <>
                         <Link href="/api/auth/login" className='mr-2 font-bold'>Sign Up</Link>
                         <Link href="/api/auth/login" className='mr-2 font-bold'>Login</Link>
                     </>
 
                 }
+                {user &&
+                    <>
+                        <Link href="/api/auth/logout" className='mr-2 font-bold ml-2'>Logout</Link>
+                    </>
+                }
+
             </div>
         </Popover >
     )
